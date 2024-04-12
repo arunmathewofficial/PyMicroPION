@@ -53,7 +53,7 @@ Ensure that the package you're trying to run is installed within the virtual env
 
 You can install PyMicroPION packages into the virtual environment using pip:
 ```bash
-pip install -i https://test.pypi.org/simple/ PyMicroPION==0.0.9
+pip install -i https://test.pypi.org/simple/ PyMicroPION==0.0.10
 ```
 
 ## Usage
@@ -106,8 +106,9 @@ of -0.5 and gravity set to 4.0.
 Output: You will find the generated SEDs in the output directory specified in your input file
 
 ## History 
+* Version 0.0.10 (Apr 12, 2024) - Stable Version
+* Version 0.0.2 (Sep 12, 2023) - Included Atlas-PoWR SED Binning 
 
-Version 0.0.9 (release data) - Atlas-PoWR SED Binning 
 
 ## GitHub Page
 

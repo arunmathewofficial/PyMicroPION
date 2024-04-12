@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='PyMicroPION',
-    version='0.0.9',
+    version='0.0.10',
     packages=find_packages(),
     license='MIT',
     description='PyMicroPION is a Python package designed to generate binned Spectral Energy Distributions (SEDs) for the MPv10 PION Module.',
