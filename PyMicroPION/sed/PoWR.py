@@ -4,6 +4,7 @@ import sys
 import math
 import numpy as np
 import pandas as pd
+import os
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from itertools import zip_longest
@@ -49,7 +50,8 @@ class PotsdamWolfRayet:
         Composition = self.SEDParameter['Composition']
         logger.info(f"  Composition: {Composition}")
         # Data base path
-        PoWRDatabase = 'PyMicroPION/data/PoWR/'
+        PackageDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        PoWRDatabase = PackageDir + '/data/PoWR/'
         # Grid Name
         GridName = Metallicity.lower() + '-' + Composition.lower()
         # Construct path to the grid directory

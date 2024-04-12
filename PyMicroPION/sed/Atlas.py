@@ -48,9 +48,11 @@ class CastelliKuruczAtlas:
         if MetallicityValue >= 0:
             sign = 'p'
         Metallicity = Metallicity.replace('-', '').replace('+', '').replace('.', '')
-        atlas_database = 'PyMicroPION/data/Atlas'
+        # Data base path
+        package_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        atlas_database = package_dir + '/data/Atlas'
+        # Construct path to the grid directory
         grid_dir = atlas_database + '/' + 'ck' + sign + Metallicity
-
         # Define the fits file pattern.
         file_pattern = 'ck' + sign + Metallicity + '_*.fits'
         # Collecting all fits files with similar names.
