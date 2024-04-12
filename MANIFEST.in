@@ -1,0 +1,2 @@
+recursive-include data/Atlas *.fits
+recursive-include data/PoWR *.txt

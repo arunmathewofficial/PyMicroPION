@@ -30,7 +30,7 @@ your virtual environment.
 To create a virtual environment, use the following command, replacing myenv with the name 
 you want to give to your virtual environment:
 ```bash
-python -m venv myenv
+python3 -m venv myenv
 ````
 ### Activate the Virtual Environment:
 You can activate the virtual environment by running:
@@ -53,7 +53,7 @@ Ensure that the package you're trying to run is installed within the virtual env
 
 You can install PyMicroPION packages into the virtual environment using pip:
 ```bash
-pip install -i https://test.pypi.org/simple/ PyMicroPION==0.0.2
+pip install -i https://test.pypi.org/simple/ PyMicroPION==0.0.8
 ```
 
 ## Usage
