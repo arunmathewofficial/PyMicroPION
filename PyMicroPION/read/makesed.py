@@ -11,6 +11,7 @@ from PyMicroPION.tools import messages as msg
 # Create a logger named "my_app_logger" that logs to "app.log" file
 logger = setup_logger("MakeSED-Param", "pymicropion_activity.log")
 
+from PyMicroPION.tools import MessageReport
 
 
 class InI_Reader:
@@ -28,7 +29,13 @@ class InI_Reader:
 
         # Get output directory and file
         OutputDir = General['outputdir']
-        OutputFile = General['outputdir'] + General['outputfilename']
+        OutputFile = General['outputdir'] + General['outputfile']
+
+        #appender = MessageAppender(OutputFile)
+        #appender.append_message("This is a message.")
+        #appender.append_message("This is another message.")
+
+
 
 
         config = configparser.ConfigParser()

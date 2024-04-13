@@ -1,6 +1,15 @@
 # PyMicroPION comments and error messages
+import pkg_resources
 
-VersionInfo = 'PyMicroPION v0.0.2'
+distribution = pkg_resources.get_distribution('PyMicroPION')
+package_version = distribution.version
+package = "PyMicroPIONv" + package_version
+metadata = distribution.get_metadata(distribution.PKG_INFO)
+
+
+
+dashes = '-' * 30
+
 
 About = ' About\n'
 
@@ -20,8 +29,21 @@ field  = rectilinear    ! rectilinear coordinate system
 label  = material_grid  ! name of data files to be proceeded
 """
 
+ExitMsg = package + " Exiting ..."
+TaskList = ["makesed"]
+
+
+
 #####################################################################################
-# ATLAS ERROR MESSAGE
+# ATLAS LOG AND ERROR
+
+AtlasModelsUnits = {'MODEL': 'Name', 'T_EFF': '[K]', 'LOG_Z': '[M/H]', 'LOG_G': '[CGS]'}
+def AtlasInputINFO(MakeSEDData):
+    return f"Initiating Binning Spectral Energy Distributions for Atlas\n"\
+           f"Initiating Atlas Model Bundling from Grids for Parameters:\n"\
+           f"  Metallicity: {MakeSEDData['Metallicity']}\n"\
+           f"  Gravity: {MakeSEDData['Gravity']}"
+
 
 # Metallicity Errors
 AtlasMetallicityInvalidKeyError = '''\n
@@ -110,3 +132,11 @@ AtlasEnergyBinEmptyKeyError = '''\n
 # specify the Energy bin key.
 '''
 
+
+#####################################################################################
+# PoWR LOG AND ERROR
+
+PoWRModelsUnits = {'GRID': 'Name', 'MODEL': 'Name', 'T_EFF': '[K]',
+                   'R_TRANS': '[R_SUN]', 'MASS': '[M_SUN]', 'LOG G': '[CGS]',
+                   'LOG L': '[L_SUN]', 'LOG MDOT': '[M_SUN/YR]', 'V_INF': '[KM/S]',
+                   'CLUMP': '[1]', 'R_STAR': '[R_SUN]'}

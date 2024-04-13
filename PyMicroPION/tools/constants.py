@@ -16,6 +16,9 @@ module. The Gauss-Laguerre weights can be calculated by `~numpy.polynomial.lague
 import numpy as np
 from scipy import special
 
+
+
+
 # Physical constants
 pi = 3.1415926535897931
 h  = 6.6260693e-27              #erg s
