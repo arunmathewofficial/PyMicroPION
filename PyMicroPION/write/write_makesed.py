@@ -69,13 +69,12 @@ class MakeSEDWriter:
                              BinnedFracSED):
 
         # Writting data into output file
-        logger.info(f"Writting data into {OutputFile}")
-        with open(OutputFile, 'a') as outfile:
+        logger.info(f"Writting data into {self.output_file_path}")
+        with open(self.output_file_path, 'a') as outfile:
             # Converting data frame to string to write to a file
             BundledModelsPlusUnits = BundledModelsPlusUnits.to_string(index=False)
             outfile.write('\n')
             outfile.write(f"<<Task Parameters>>\n")
-            outfile.write(f" - Task: {GeneralData['taskname']}\n")
             outfile.write(f" - Atmosphere Model: Potsdam Wolf-Rayet\n")
             outfile.write(f" - Parameters: \n")
             outfile.write(f"   - Metallicity: {MakeSEDData['Metallicity']}\n")
@@ -107,16 +106,18 @@ class MakeSEDWriter:
                 # outfile.write()
                 pass
             if MakeSEDData['PIONFormat']:
-                outfile.write(PIONFormat)
+                pass
+                #outfile.write(PIONFormat)
 
 
-    def MakeSED_BB_Writer(self, MakeSEDData, BundledModelsPlusUnits, EBins_LamBins, BinnedFracSED):
-        # Writting data into output file
-        logger.info(f"Writting data into {OutputFile}")
-        with open(OutputFile, 'a') as outfile:
+
+
+    # BlackBody Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    def MakeSED_BB_Writer(self, MakeSEDData, EBins_LamBins, BinnedFracSED, QHSet):
+        logger.info(f"Writting data into {self.output_file_path}")
+        with open(self.output_file_path, 'a') as outfile:
             outfile.write('\n')
             outfile.write(f"<<Task Parameters>>\n")
-            outfile.write(f" - Task: {GeneralData['taskname']}\n")
             outfile.write(f" - Atmosphere Model: Blackbody\n")
             outfile.write(f"   - Energy Bins:\n")
             EBins = EBins_LamBins['Energy Bins'].to_string(index=False)
@@ -137,7 +138,7 @@ class MakeSEDWriter:
             outfile.write(Formatted_FracSED)
             outfile.write('\n' * 2)
 
-            if MakeSEDData['Q_H']:
+            if not QHSet.empty:
                 outfile.write(f" - Q(H) and Luminosity of Black Body star:\n")
                 outfile.write(f" - Units: [Name], [K], [s$^{-1}$], [1], [erg/s], [1]\n")
                 outfile.write('\n')
@@ -150,4 +151,5 @@ class MakeSEDWriter:
                 # outfile.write()
                 pass
             if MakeSEDData['PIONFormat']:
-                outfile.write(PIONFormat)
+                pass
+                #outfile.write(PIONFormat)

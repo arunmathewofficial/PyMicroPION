@@ -84,7 +84,7 @@ def main():
             if MakeSEDData['Plot']: AtlasObject.PlotAtlas(MakeSEDData['PlotPath'])
             # PION Format
             if MakeSEDData['PIONFormat']: PIONFormat = AtlasObject.PionFormatAtlas(MakeSEDData['PIONFormatPath'])
-            # Always add the Task Counter whenever you add a task.
+            # Increment Task Counter
             TaskCounter +=1
         #******************************************************************************************
 
@@ -98,10 +98,14 @@ def main():
             SED = PoWRObject.SpectralEnergyDistributions()
             EBins_LamBins = SED['EBins_LamBins']
             BinnedFracSED = SED['BinnedFracSED']
+            PoWRWriterObject = MakeSEDWriter(OutputFile)
+            PoWRWriterObject.MakeSED_PoWR_Writer(MakeSEDData, BundledModelsPlusUnits, EBins_LamBins, BinnedFracSED)
             # Plot data into plot directory
             if MakeSEDData['Plot']: PoWRObject.PlotPoWR(MakeSEDData['PlotPath'])
             # PION Format
             if MakeSEDData['PIONFormat']:PIONFormat = PoWRObject.PionFormatPoWR(MakeSEDData['PIONFormatPath'])
+            # Increment Task Counter
+            TaskCounter +=1
         #******************************************************************************************
 
 
@@ -112,18 +116,18 @@ def main():
             SED = BlackBodyObject.SpectralEnergyDistributions()
             EBins_LamBins = SED['EBins_LamBins']
             BinnedFracSED = SED['BinnedFracSED']
+            QHSet = pd.DataFrame()
             if MakeSEDData['Q_H']:
                 QHSet = BlackBodyObject.CalculateQH(MakeSEDData['Rstar'])['QHSet']
+            BBWriterObject = MakeSEDWriter(OutputFile)
+            BBWriterObject.MakeSED_BB_Writer(MakeSEDData, EBins_LamBins, BinnedFracSED, QHSet)
+
             # Plot data into plot directory
-            if MakeSEDData['Plot']:
-                # Get the plot path
-                PlotPath = MakeSEDData['PlotPath']
-                FluxLambda = BlackBodyObject.PlotBB(PlotPath)['FluxLambda']
+            if MakeSEDData['Plot']: BlackBodyObject.PlotBB(MakeSEDData['PlotPath'])['FluxLambda']
             # PION Format
-            if MakeSEDData['PIONFormat']:
-                # Get the plot path
-                PIONFormatPath = MakeSEDData['PIONFormatPath']
-                PIONFormat = BlackBodyObject.PionFormatPoWR(PIONFormatPath)
+            if MakeSEDData['PIONFormat']: BlackBodyObject.PionFormatPoWR(MakeSEDData['PIONFormatPath'])
+            # Increment Task Counter
+            TaskCounter +=1
         #******************************************************************************************
 
     MakeSED_EndTime = time.time()
@@ -133,32 +137,15 @@ def main():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # **********************************************************************************************
-    # put this towards the end of main
+    # Put this towards the end of main *******************************************************
     if TaskCounter == 0:
         logger.warn("No Actionable Tasks Found.")
         with open(OutputFile, 'a') as outfile:
             outfile.write(msg.NoTaskError)
-        sys.exit("PyMicroPION Exiting ...")
+        sys.exit(msg.ExitMsg)
 
     if TaskCounter != 0:
-        logger.info(GeneralData['taskname'] + ' Successfull')
+        logger.info(GeneralData['task'] + ' Done')
         with open(OutputFile, 'a') as outfile:
             outfile.write('\n')
             outfile.write(' - Task Summary:\n')
@@ -172,7 +159,7 @@ def main():
             outfile.write(f"   - Overall runtime: {PyMicroPION_OverallTime:.{6}f} sec\n")
             outfile.write("\n")
             outfile.write(f"# End of File\n")
-    logger.info(f'--------- PyMicroPIONv' + package_version + ' Finished ---------')
+    logger.info(f'---------' + msg.package + ' Finished ---------')
     # **********************************************************************************************
 
 if __name__ == "__main__":
